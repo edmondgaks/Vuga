@@ -63,8 +63,38 @@
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
-      crossorigin="anonymous"
-    ></script>
+      crossorigin="anonymous"></script>
+
+    <script>
+      // let username, email, password
+      let theForm = document.querySelector('form')
+
+      theForm.onsubmit = async (e) => {
+          e.preventDefault();
+          const data= {
+              email: document.querySelector('input[name=email]').value,
+              password: document.querySelector('input[name=password]').value
+          }
+
+          // return console.log(data);
+
+      let response =  await fetch('http://localhost:3000/checkUser', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify(data)
+          })
+          response  = await response.text()
+      if (response) {
+          window.location.pathname = '/home'
+      }   
+      else{
+          console.log('register failed');
+      }
+      }
+
+  </script>
     
   </body>
 </html>
