@@ -19,9 +19,14 @@ app.set('view engine','ejs');
 
 app.use('/', router);
 
-// app.listen(3000);
+const server = require('http').createServer(app)
+const io = require('socket.io')(server)
 
-module.exports = app;
+io.on('connection', () => {
+    console.log("A new user connected");
+})
+
+module.exports = server;
 
 // const port = 5000;
 // const mongoose = require('mongoose');
